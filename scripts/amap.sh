@@ -126,7 +126,7 @@ EOF
 }
 
 cmd="${1:-}"
-[ "$#" -gt 0 ] && shift || true
+if [ "$#" -gt 0 ]; then shift; fi
 case "$cmd" in
   geo)        _call /v3/geocode/geo                   address "${1:?address required}" city "${2:-}" ;;
   regeocode)  _call /v3/geocode/regeo                 location "${1:?location \"lng,lat\" required}" ;;
@@ -142,7 +142,7 @@ case "$cmd" in
   ip)         _call /v3/ip                             ip "${1:-}" ;;
   raw)        p="${1:?path required}"; shift; _call "$p" "$@" ;;
   doctor)     _doctor "${1:-}"; exit 0 ;;
-  ""|-h|--help|help) usage; [ -z "$cmd" ] && exit 1 || exit 0 ;;
+  ""|-h|--help|help) usage; if [ -z "$cmd" ]; then exit 1; else exit 0; fi ;;
   *) echo "unknown command: $cmd" >&2; usage; exit 1 ;;
 esac
 echo
