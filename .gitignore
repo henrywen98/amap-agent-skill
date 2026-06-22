@@ -1,0 +1,10 @@
+# 绝不提交真实 key
+.env
+.env.local
+
+# 缓存（doctor 拉取的 tools/list）
+*.cache
+.cache/
+
+# macOS
+.DS_Store
